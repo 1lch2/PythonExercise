@@ -1,6 +1,21 @@
+# Customized exceptions.
+class InitMagError(Exception):
+    pass
+
+
+# Remington R4-C short barrel assualt rifle.
 class R4C(object):
     def __init__(self, ammo):
-        self.ammo = ammo
+        try:
+            if ammo > 31:
+                self.ammo = 31
+                raise InitMagError("Wrong magzine ammo number.")
+        except InitMagError as e:
+            print(e)
+        else:
+            self.ammo = ammo
+            print('R4C created.')
+
     
     def fire(self, bullets):
         if self.ammo >= bullets:
@@ -29,3 +44,6 @@ print(g1.ammo)
 g1.fire(20)
 print(g1.ammo)
 g1.fire(1)
+
+g2 = R4C(50)
+print(g2.ammo)
