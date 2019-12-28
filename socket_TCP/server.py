@@ -1,16 +1,42 @@
 from socket import *
 import time
 import _thread
+import json
+import struct
+
+
+buffersize = 1024
 
 # Accept file from client.
 def server(sock, addr, serverport):
-    print('Receive connection from: ' + str(addr))
-    fp = open(str(serverport), 'wb')
-    while True:
-        data = sock.recv(1024)
-        if len(data) == 0:
-            break
-        fp.write(data)
+    # Receive head info.
+    head_len_num = sock.recv(4) # Receive the nuumber of the size for the head segment.
+    if head_len_num:
+        print('Receive connection from: ' + str(addr))
+
+    headsize = struct.unpack('i', head_len_num)[0] # Get the size of the head segment.
+    headdata = sock.recv(headsize) # Receive head segment.
+
+    # Extract the head message,
+    head_decode = json.loads(headdata.decode('utf-8'))
+    filename = head_decode['filename']
+    filesize = head_decode['filesize']
+
+    # Receive file from client.
+    recvsize = 0
+    fp = open(filename, 'wb')
+    while recvsize < filesize:
+        if filesize - recvsize > buffersize:
+            recvdata = sock.recv(buffersize)
+            fp.write(recvdata)
+            recvsize += len(recvdata)
+        else:
+            recvdata = sock.recv(filesize - recvsize)
+            recvsize += len(recvdata)
+            fp.write(recvdata)
+
+    print('File received size:' + str(recvsize))
+    print('File received name:' + filename)
 
     fp.close()
     sock.close()
