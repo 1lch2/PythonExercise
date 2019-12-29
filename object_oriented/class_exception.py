@@ -7,51 +7,56 @@ class InitMagError(Exception):
         return self.errorinfo
 
 
-# Remington R4-C short barrel assualt rifle.
-class R4C(object):
+# Assualt rifle.
+class AR(object):
     def __init__(self, ammo):
         try:
             if ammo > 30:
-                self.ammo = 30
+                self.__ammo = 30
                 raise InitMagError("[Wrong ammo number.]")
         except InitMagError as e:
             print(e)
         else:
-            self.ammo = ammo
-            print('R4C created.')
+            self.__ammo = ammo
+            print('AR created.')
 
     # Fire given number of bullets.
     def fire(self, bullets):
-        if self.ammo >= bullets:
-            self.ammo -= bullets
+        if self.__ammo >= bullets:
+            self.__ammo -= bullets
             print('Bullets fired:' + str(bullets))
-        elif self.ammo == 0:
+        elif self.__ammo == 0:
             print('Need to reload')
             self.reload()
-        elif self.ammo < bullets:
-            print('Bullets fired:' + str(self.ammo))
+        elif self.__ammo < bullets:
+            print('Bullets fired:' + str(self.__ammo))
             self.reload()
 
-        print('Ammo count:' + str(self.ammo))
+        print('Ammo count:' + str(self.__ammo))
     
     # Reload the gun to a full magzine with 30 rounds.
     def reload(self):
-        if self.ammo >= 30:
+        if self.__ammo >= 30:
             print('No need for reload')
         else:
-            self.ammo = 30
+            self.__ammo = 30
             print('Reload completed')
 
-# Testing class
-g1 = R4C(31)
-g1.fire(12)
-print(g1.ammo)
-g1.fire(20)
-print(g1.ammo)
-g1.reload()
-g1.fire(1)
+    # Check magzine
+    def checkmag(self):
+        return self.__ammo
 
-print('\n-----------------------\n')
-# Testing exception.
-g2 = R4C(50)
-print(g2.ammo)
+if __name__ == '__main__':
+    # Testing class
+    g1 = AR(31)
+    g1.fire(12)
+    print(g1.checkmag())
+    g1.fire(20)
+    print(g1.checkmag())
+    g1.reload()
+    g1.fire(1)
+
+    print('-----------------------\n')
+    # Testing exception.
+    g2 = AR(50)
+    print(g2.checkmag())
