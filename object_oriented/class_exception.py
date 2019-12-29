@@ -9,6 +9,11 @@ class InitMagError(Exception):
 
 # Assualt rifle.
 class AR(object):
+    magsize = 30
+
+    # Use __slots__ to limit the variables that can be bound with instance.
+    __slots__ = ('__ammo')
+
     def __init__(self, ammo):
         try:
             if ammo > 30:
