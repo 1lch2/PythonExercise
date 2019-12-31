@@ -27,7 +27,15 @@ class AKM(ce.AR):
 def testfunc(self):
     print('Test function here.')
 
-if __name__ == '__main__':
+def dynamic_test():
+    # Test dynamically bind method with an instance.
+    AK = AKM(30)
+    AK.testfunc = MethodType(testfunc, AK)
+    AK.testfunc() # Ignore error in pylint, this actually works as intended.
+
+    print(callable(AK.testfunc)) # Stupid pylint can`t even figure out it is callable.
+
+def inheritance_test():
     # Test inheritance.
     AK = AKM(30)
     print(AK.checkmag())
@@ -44,8 +52,6 @@ if __name__ == '__main__':
     # Test @property
     print(AK.getprop)
 
-    # Test dynamically bind method with an instance.
-    AK.testfunc = MethodType(testfunc, AK)
-    AK.testfunc() # Ignore error in pylint, this actually works as intended.
-
-    print(callable(AK.testfunc)) # Stupid pylint can`t even figure out it is callable.
+if __name__ == '__main__':
+    pass
+    # Choose a test method to start.

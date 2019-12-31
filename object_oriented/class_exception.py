@@ -51,7 +51,7 @@ class AR(object):
     def checkmag(self):
         return self.__ammo
 
-if __name__ == '__main__':
+def test_main():
     # Testing class
     g1 = AR(31)
     g1.fire(12)
@@ -65,3 +65,6 @@ if __name__ == '__main__':
     # Testing exception.
     g2 = AR(50)
     print(g2.checkmag())
+
+if __name__ == '__main__':
+    test_main()
