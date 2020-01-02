@@ -1,10 +1,11 @@
 # Customized exceptions.
-class InitMagError(Exception):
+class CustError(Exception):
     def __init__(self,ErrorInfo):
         super().__init__(self) #初始化父类
         self.errorinfo=ErrorInfo
     def __str__(self):
-        return self.errorinfo
+        ei = 'Customized error message: ' + self.errorinfo
+        return ei
 
 
 # Assualt rifle.
@@ -18,8 +19,8 @@ class AR(object):
         try:
             if ammo > 30:
                 self.__ammo = 30
-                raise InitMagError("[Wrong ammo number.]")
-        except InitMagError as e:
+                raise CustError("[Wrong ammo number.]")
+        except CustError as e:
             print(e)
         else:
             self.__ammo = ammo
