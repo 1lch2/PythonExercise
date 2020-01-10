@@ -5,6 +5,7 @@ class sort(object):
 
     # Bubble sort.
     # Complexity: O(n^2)
+    @classmethod
     def bubblesort(self, seq):
         flag = True
         r_seq = seq.copy()
@@ -24,6 +25,7 @@ class sort(object):
 
     # Quick sort.
     # Complexity: O(nlogn)
+    @classmethod
     def quicksort(self, seq, low, high):
         i = low
         j = high
