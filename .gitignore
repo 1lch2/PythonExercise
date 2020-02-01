@@ -131,3 +131,5 @@ dmypy.json
 # Added by me.
 # Visual Studio Code setting file
 .vscode/
+
+*.gz
