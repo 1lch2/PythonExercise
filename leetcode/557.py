@@ -3,7 +3,7 @@ class Solution:
         sentence = []
         for word in s.split(' '):
             s_ = list(word)
-            halflen = int(len(s_)/2)
+            halflen = len(s_) // 2
             for i in range(halflen):
                 temp = s_[i]
                 s_[i] = s_[-(i+1)]
