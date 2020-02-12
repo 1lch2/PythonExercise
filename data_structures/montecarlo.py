@@ -3,6 +3,8 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt 
 
+
+# Calculating Pi using Monte Carlo algorithm.
 def montecarlo_pi(times:int):
     inside = 0
     total = times
