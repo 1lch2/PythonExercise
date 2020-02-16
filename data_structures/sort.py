@@ -1,5 +1,5 @@
 # Sorting methods.
-class sort(object):
+class sort():
     def __str__(self):
         return 'This is a class containing multiple sorting methods.'
 
@@ -49,3 +49,9 @@ class sort(object):
 
             self.quicksort(seq, low, i-1)
             self.quicksort(seq, i+1, high)
+
+
+if __name__ == '__main__':
+    sample = [2, 3, 10, 1, 4, 7, 5, 9, 12, 0]
+    sort.quicksort(sample, 0, len(sample)-1)
+    print(sample)
