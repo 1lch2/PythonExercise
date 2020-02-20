@@ -49,9 +49,47 @@ class sort():
 
             self.quicksort(seq, low, i-1)
             self.quicksort(seq, i+1, high)
+    
+    # Merge sort.
+    # Complexity: O(nlogn)
+    @classmethod
+    def mergesort(self, seq):
+        s_len = len(seq)
+
+        # Merge small lists into one ordered sequence.
+        def merge(left:list, right:list)->list :
+            res = []
+            i, j = 0, 0
+            left_len = len(left)
+            right_len = len(right)
+
+            while i < left_len and j < right_len:
+                if left[i] <= right[j]:
+                    res.append(left[i])
+                    i += 1
+                else:
+                    res.append(right[j])
+                    j += 1
+
+            if i == left_len:
+                res += right[j:]
+            elif j == right_len:
+                res += left[i:]
+            
+            return res
+                
+        if s_len <= 1:
+            return seq
+        middle = s_len // 2
+
+        # Recursively devide the sequence
+        left = self.mergesort(seq[:middle])
+        right = self.mergesort(seq[middle:])
+
+        # Merge small lists into one ordered sequence.
+        return merge(left, right)
 
 
 if __name__ == '__main__':
     sample = [2, 3, 10, 1, 4, 7, 5, 9, 12, 0]
-    sort.quicksort(sample, 0, len(sample)-1)
-    print(sample)
+    print(sort.mergesort(sample))
