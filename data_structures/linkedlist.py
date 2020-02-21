@@ -28,16 +28,16 @@ class ListNode:
         return node0
 
 
-def reverse_dualpointer(self, head: ListNode) -> ListNode:
-    p = None
-    q = head
-    while q != None:
-        temp = q.next
-        q.next = p
-        p = q
-        q = temp
-    
-    return p
+    def reverse_dualpointer(self, head: ListNode) -> ListNode:
+        p = None
+        q = head
+        while q != None:
+            temp = q.next
+            q.next = p
+            p = q
+            q = temp
+        
+        return p
 
 
 def test_listnode():
