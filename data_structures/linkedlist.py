@@ -3,12 +3,16 @@ class ListNode:
         self.val = x
         self.next = None
 
+    # Print the linked list in string format
+    # eg: 1->2->3->null
     def printnode(self):
         while self != None:
-            print(self.val)
+            print(str(self.val) + "->", end="")
             self = self.next
+            if self == None:
+                print("null")
     
-
+    # Reverse the linked list.
     def reverseList(self):
         if self != None:
             stacklist = []
@@ -27,8 +31,8 @@ class ListNode:
 
         return node0
 
-
-    def reverse_dualpointer(self, head: ListNode) -> ListNode:
+    # Reverse the linked list in dual pointer method.
+    def reverse_dualpointer(self, head):
         p = None
         q = head
         while q != None:
@@ -38,6 +42,7 @@ class ListNode:
             q = temp
         
         return p
+
 
 
 def test_listnode():
