@@ -42,6 +42,38 @@ class ListNode:
             q = temp
         
         return p
+    
+    # Merge two sorted linked lists.
+    @staticmethod
+    def mergeTwoLists(l1, l2):
+        # Dummy node head
+        res = ListNode(0)
+        temp = res
+
+        h1, h2 = l1, l2
+        while h1 and h2 != None:
+            # Compare the next node
+            if h1.val <= h2.val:
+                temp.next = h1
+                h1 = h1.next
+            else:
+                temp.next = h2
+                h2 = h2.next
+            # Move to current node
+            temp = temp.next
+        
+        # Dealing with the remaining nodes.
+        while h1 or h2 != None:
+            if h1 != None:
+                temp.next = h1
+                h1 = h1.next
+                temp = temp.next
+            elif h2 != None:
+                temp.next = h2
+                h2 = h2.next
+                temp = temp.next
+        
+        return res.next
 
 
 
@@ -60,6 +92,8 @@ def test_listnode():
     newlist = node0.reverseList()
     newlist.printnode()
 
+    merged = ListNode.mergeTwoLists(node0, newlist)
+    merged.printnode()
 
 if __name__ == '__main__':
     test_listnode()
