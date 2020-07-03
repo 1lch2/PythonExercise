@@ -55,6 +55,26 @@ class TreeNode(object):
                         stack.append(current_root.right)
                     if current_root.left != None:
                         stack.append(current_root.left)
+    
+    # Breadth-first traversal.
+    def bfs(self, root):
+        """
+        Args:
+            root: Root node of the binary tree.
+        Returns:
+            No returns, only print out the value of the nodes in the traversal sequence.
+        """
+        queue = []
+        queue.append(root)
+        while len(queue) > 0:
+            current_root = queue[0]
+            print(current_root.val, end=" -> ")
+            queue.pop(0)
+            if current_root.left != None:
+                queue.append(current_root.left)
+            if current_root.right != None:
+                queue.append(current_root.right)
+
 
 def test_binary_tree():
     # Test case: root
@@ -84,6 +104,8 @@ def test_binary_tree():
     node5.add(node7, 'r')
 
     root.dfs(root, mode="stack")
+    print("\n")
+    root.bfs(root)
 
 
 if __name__ == '__main__':
