@@ -1,5 +1,5 @@
 class TreeNode(object):
-    def __init__(self, val):
+    def __init__(self, val: int) -> "TreeNode":
         """
         Args:
             val: The value of the tree node.
@@ -10,7 +10,7 @@ class TreeNode(object):
 
 
     # Add new node to existing tree node.
-    def add(self, node, side):
+    def add(self, node: "TreeNode", side: str):
         """
         Args:
             node: The node to be added to the tree.
@@ -27,7 +27,7 @@ class TreeNode(object):
         
 
     # Depth first search, a.k.a., preorder traversal.
-    def dfs(self, root, mode="recursive"):
+    def dfs(self, root: "TreeNode", mode="recursive"):
         """
         Args:
             root: Root node of the binary tree.
@@ -57,7 +57,7 @@ class TreeNode(object):
                         stack.append(current_root.left)
     
     # Breadth-first traversal.
-    def bfs(self, root):
+    def bfs(self, root: "TreeNode"):
         """
         Args:
             root: Root node of the binary tree.
