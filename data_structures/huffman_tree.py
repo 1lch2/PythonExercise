@@ -23,6 +23,10 @@ class HuffmanTreeNode(object):
 
 class HuffmanTree(object):
     """Huffman tree object.
+
+    Attributes:
+        sorted_list: character and its frenquency in ascending order.
+        root_node: Root node of the Huffman tree.
     """
 
     def __init__(self, seq: str):
