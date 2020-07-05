@@ -1,11 +1,20 @@
 class ListNode:
-    def __init__(self, x):
+    """Node of a linked list.
+
+    Attributes:
+        val: Value of the node.
+        next: Pointer of the node, default: None.
+    """
+
+    def __init__(self, x: int):
         self.val = x
         self.next = None
 
-    # Print the linked list in string format
-    # eg: 1->2->3->null
     def printnode(self):
+        """Print the linked list in string format.
+
+        eg: 1->2->3->null
+        """
         # Stop criterion for circular linked lists.
         COUNT = 10
         i = 0
@@ -15,16 +24,20 @@ class ListNode:
             if self == None:
                 print("null")
             i += 1
-    
-    # Reverse the linked list.
+
     def reverseList(self):
+        """Reverse the linked list.
+
+        Returns: 
+            The head node of reversed linked list.
+        """
         if self != None:
             stacklist = []
             temp = self
             while temp != None:
                 stacklist.append(temp.val)
                 temp = temp.next
-            
+
             node0 = ListNode(stacklist.pop())
             temp = node0
             while len(stacklist) != 0:
@@ -35,8 +48,14 @@ class ListNode:
 
         return node0
 
-    # Reverse the linked list in dual pointer method.
     def reverse_dualpointer(self, head):
+        """Reverse the linked list in dual pointer method.
+
+        Args:
+            head: The head node of linked list.
+        Returns:
+            The head node of reversed linked list.
+        """
         p = None
         q = head
         while q != None:
@@ -44,12 +63,19 @@ class ListNode:
             q.next = p
             p = q
             q = temp
-        
+
         return p
-    
-    # Merge two sorted linked lists.
+
     @staticmethod
     def mergeTwoLists(l1, l2):
+        """Merge two sorted linked lists.
+
+        Args:
+            l1: Head node of sorted list one.
+            l2: Head node of sorted list two.
+        Returns:
+            The merged list.
+        """
         # Dummy node head
         res = ListNode(0)
         temp = res
@@ -65,7 +91,7 @@ class ListNode:
                 h2 = h2.next
             # Move to current node
             temp = temp.next
-        
+
         # Dealing with the remaining nodes.
         while h1 or h2 != None:
             if h1 != None:
@@ -76,7 +102,7 @@ class ListNode:
                 temp.next = h2
                 h2 = h2.next
                 temp = temp.next
-        
+
         return res.next
 
 
@@ -85,7 +111,7 @@ class DualListNode():
         self.val = val
         self.next = None
         self.pre = None
-    
+
     # Print out the value of the nodes.
     def printnode(self):
         # Stop criterion for circular linked lists.
@@ -94,6 +120,7 @@ class DualListNode():
         while self != None and i < COUNT:
             if self.pre == None:
                 print("null <-> ", end="")
+            
             print(str(self.val) + " <-> ", end="")
             self = self.next
             if self == None:
@@ -125,6 +152,7 @@ def test_listnode():
     node2.next = node0
     node0.printnode()
 
+
 def test_dual_listnode():
     node0 = DualListNode(0)
     node1 = DualListNode(1)
@@ -136,6 +164,7 @@ def test_dual_listnode():
     node1.pre = node0
 
     node0.printnode()
+
 
 if __name__ == '__main__':
     test_dual_listnode()

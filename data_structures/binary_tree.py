@@ -1,6 +1,15 @@
 class TreeNode(object):
+    """Node of a binary tree.
+
+    Attributes:
+        val: The value of the node.
+        left: Left child of current node, default: None.
+        right: Right child of current node, default: None.
+    """
+
     def __init__(self, val: int) -> "TreeNode":
-        """
+        """Initialize the TreeNode with desired value.
+
         Args:
             val: The value of the tree node.
         """
@@ -8,10 +17,9 @@ class TreeNode(object):
         self.left = None
         self.right = None
 
-
-    # Add new node to existing tree node.
     def add(self, node: "TreeNode", side: str):
-        """
+        """Add new node to existing tree node.
+
         Args:
             node: The node to be added to the tree.
             side: The side that the node is added to. "l" for left side, "r" for right side.
@@ -24,11 +32,10 @@ class TreeNode(object):
             self.right = node
         else:
             raise(Exception('Wrong parameter.'))
-        
 
-    # Depth first search, a.k.a., preorder traversal.
     def dfs(self, root: "TreeNode", mode="recursive"):
-        """
+        """Depth first search, a.k.a., preorder traversal.
+
         Args:
             root: Root node of the binary tree.
             mode: Traversal mode. "recursive" for using recursive method, "stack" for using stack method.
@@ -55,10 +62,10 @@ class TreeNode(object):
                         stack.append(current_root.right)
                     if current_root.left != None:
                         stack.append(current_root.left)
-    
-    # Breadth-first traversal.
+
     def bfs(self, root: "TreeNode"):
-        """
+        """Breadth-first traversal.
+
         Args:
             root: Root node of the binary tree.
         Returns:
@@ -85,7 +92,7 @@ def test_binary_tree():
     # 3   4   5
     #        / \
     #       6   7
-    
+
     root = TreeNode(0)
     node1 = TreeNode(1)
     node2 = TreeNode(2)
@@ -94,7 +101,7 @@ def test_binary_tree():
     node5 = TreeNode(5)
     node6 = TreeNode(6)
     node7 = TreeNode(7)
-    
+
     root.add(node1, 'l')
     root.add(node2, 'r')
     node1.add(node3, 'l')
