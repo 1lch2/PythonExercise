@@ -13,6 +13,12 @@ class SMG(object):
     def rpm(self):
         return self._rpm
 
+    @rpm.setter
+    def rpm(self, val: int):
+        if not isinstance(val, int):
+            raise TypeError("Input must be an integer.")
+        self._rpm = val
+
     def fullauto(self, bullets):
         if bullets <= 0 or bullets > self._magsize:
             raise ValueError('Incorrect bullets count.')
@@ -76,6 +82,9 @@ def inheritance_test():
 
     print(g1.rpm)
 
+    g1.rpm = 1500
+    print(g1.rpm)
+
     g1.semiauto()
     print(g1.ammo)
 
@@ -93,4 +102,4 @@ def customize_test():
 
 
 if __name__ == '__main__':
-    customize_test()
+    inheritance_test()
