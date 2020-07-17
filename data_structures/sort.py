@@ -31,24 +31,24 @@ class Sort():
         j = high
         
         if low < high:
-            base = seq[low]
-            while i < j:
-                while seq[j] > base and j > i:
+            base = seq[low] # 以左端起始的数字为枢轴
+            while i < j: # 当左右侧指针相遇时停止循环
+                while seq[j] > base and j > i: # 从右向左扫描比枢轴小的数
                     j -= 1
                 if j > i:
-                    seq[i] = seq[j]
-                    i += 1
+                    seq[i] = seq[j] # 将比枢轴小的数放到 i 所指的位置
+                    i += 1 # i 右移一位
                 
-                while seq[i] < base and i < j:
+                while seq[i] < base and i < j: # 交换方向，从左向右扫描比枢轴大的数
                     i += 1
                 if i < j:
-                    seq[j] = seq[i]
-                    j -= 1
+                    seq[j] = seq[i] # 将比枢轴大的数放到 j 所指的位置
+                    j -= 1 # j 左移一位
                 
-            seq[i] = base
+            seq[i] = base # 将枢轴放在最终的位置
 
-            self.quicksort(seq, low, i-1)
-            self.quicksort(seq, i+1, high)
+            self.quicksort(seq, low, i-1) # 递归对枢轴左侧排序
+            self.quicksort(seq, i+1, high) # 递归对枢轴右侧排序
     
     # Merge sort.
     # Complexity: O(nlogn)
@@ -89,8 +89,38 @@ class Sort():
         # Merge small lists into one ordered sequence.
         return merge(left, right)
 
+    # Simple select sort
+    # O(n^2)
+    @classmethod
+    def simple_select_sort(self, seq: list):
+        i, j, k = 0, 0, 0
+        # i 为有序部分的末尾
+        while i < len(seq):
+            k = i       # k 为最小值下标
+            j = i + 1   # j 为无序部分的开始
+
+            # 该循环从无序序列中找到最小值
+            while j < len(seq):
+                if seq[k] > seq[j]: # seq[k] 为最小值时，k 不会再变化
+                    k = j
+                j += 1
+            
+            # 最小关键字和无序部分第一个值交换
+            seq[i], seq[k] = seq[k], seq[i]
+
+            i += 1
+    
+    # Heap sort
+    # O(nlogn)
+    def heap_sort(self, seq: list):
+        pass
 
 if __name__ == '__main__':
     sample = [2, 3, 10, 1, 4, 7, 5, 9, 12, 0]
-    Sort.quicksort(sample, 0, len(sample)-1)
-    print(sample)
+    s = sample.copy()
+    Sort.quicksort(s, 0, len(s)-1)
+    print(s)
+
+    s = sample.copy()
+    Sort.simple_select_sort(s)
+    print(s)
