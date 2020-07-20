@@ -16,6 +16,15 @@ class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         return (3 * sum(set(nums)) - sum(nums)) // 2
 
+# https://leetcode-cn.com/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/
 class Solution1:
     def singleNumber(self, nums: List[int]) -> int:
-        pass
+        # 所有位计算规则相同，只对某一位做统计计算
+        # two, one 分别为状态转移中两个位的值
+        two, one = 0, 0 
+        for n in nums:
+            one = (one ^ n) & ~two
+            two = (two ^ n) & ~one
+        
+        return one
+    
