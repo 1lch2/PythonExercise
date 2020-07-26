@@ -3,7 +3,7 @@ class Bit:
     """
     @staticmethod
     def getSmallest2Power(x: int) -> int:
-        """Given integer x, return the smallest power of 2 that bigger than x.
+        """For the given integer x, return the smallest power of 2 that bigger than x.
         """
         i = 0
         # 先循环右移得到最高有效位
@@ -23,7 +23,7 @@ class Bit:
         """Count the number of 1 in the binary of input integer.
 
         Args:
-            n: Integer
+            n: The input integer.
             method: Different method. Can be 0 or 1:
         """
         count = 0
@@ -52,7 +52,7 @@ class Bit:
         return count
 
     @classmethod
-    def reverseBits(self, n: int) -> int:
+    def reverseBits(cls, n: int) -> int:
         """Reverse a 32-bit unsigned integer.
         """
         res = 0
@@ -67,7 +67,7 @@ class Bit:
         return res
 
     @classmethod
-    def isPowerOfTwo(self, n: int, method=0) -> bool:
+    def isPowerOfTwo(cls, n: int, method=0) -> bool:
         """Judge if the input integer is power of 2.
 
         Args:
