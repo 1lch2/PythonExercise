@@ -4,31 +4,27 @@ class Sort():
         return 'This is a class containing multiple sorting methods.'
 
     @classmethod
-    def bubblesort(self, seq: list):
+    def bubblesort(cls, seq: list):
         """Bubble sort. Complexity: O(n^2).
 
         Returns: 
             The sorted sequence.
         """
         flag = True # 是否发生交换
-        r_seq = seq.copy()
-
         while flag :
             flag = False # 若一趟下来没有发生交换，则 flag 保持 False
             i = 0
-            while i < len(r_seq) - 1:
-                temp = r_seq[i]
-                if r_seq[i] > r_seq[i+1] :
-                    r_seq[i] = r_seq[i+1]
-                    r_seq[i+1] = temp
+            while i < len(seq) - 1:
+                if seq[i] > seq[i+1] :
+                    seq[i], seq[i+1] = seq[i+1], seq[i]
                     flag = True
                 i += 1
         
-        return r_seq
+        return seq
 
 
     @classmethod
-    def quicksort(self, seq: list, low: int, high: int):
+    def quicksort(cls, seq: list, low: int, high: int):
         """Quick sort in recursive method. Complexity: O(nlogn).
 
         Args:
@@ -64,7 +60,7 @@ class Sort():
     
 
     @classmethod
-    def mergesort(self, seq: list):
+    def mergesort(cls, seq: list):
         """Two-way merge sort. Complexity: O(nlogn)
 
         Returns:
@@ -105,7 +101,7 @@ class Sort():
         return merge(left, right)
 
     @classmethod
-    def simple_select_sort(self, seq: list):
+    def simple_select_sort(cls, seq: list):
         """Simple select sort. Complexity: O(n^2).
 
         Returns: 
@@ -129,7 +125,7 @@ class Sort():
             i += 1
     
     @classmethod
-    def heap_sort(self, seq: list):
+    def heap_sort(cls, seq: list):
         """Max heap sort. Complexity: O(nlogn).
 
         Args:
