@@ -105,6 +105,18 @@ class ListNode:
 
         return res.next
 
+    @staticmethod
+    def listToListNode(seq: list) -> ListNode:
+        """Convert a list to a linked list.
+        """
+        dummyRoot = ListNode(0)
+        ptr = dummyRoot
+        for number in seq:
+            ptr.next = ListNode(number)
+            ptr = ptr.next
+
+        ptr = dummyRoot.next
+        return ptr
 
 class DualListNode():
     def __init__(self, val):
