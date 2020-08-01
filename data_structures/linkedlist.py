@@ -106,7 +106,7 @@ class ListNode:
         return res.next
 
     @staticmethod
-    def listToListNode(seq: list) -> ListNode:
+    def listToListNode(seq: list):
         """Convert a list to a linked list.
         """
         dummyRoot = ListNode(0)
@@ -118,35 +118,9 @@ class ListNode:
         ptr = dummyRoot.next
         return ptr
 
-class DualListNode():
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-        self.pre = None
 
-    # Print out the value of the nodes.
-    def printnode(self):
-        # Stop criterion for circular linked lists.
-        COUNT = 10
-        i = 0
-        while self != None and i < COUNT:
-            if self.pre == None:
-                print("null <-> ", end="")
-            
-            print(str(self.val) + " <-> ", end="")
-            self = self.next
-            if self == None:
-                print("null")
-            i += 1
-
-
-def test_listnode():
-    node0 = ListNode(0)
-    node1 = ListNode(1)
-    node2 = ListNode(2)
-
-    node0.next = node1
-    node1.next = node2
+def main():
+    node0 = ListNode.listToListNode([0,1,2,3,4])
 
     node0.printnode()
     temp = node0
@@ -160,23 +134,5 @@ def test_listnode():
     merged = ListNode.mergeTwoLists(node0, newlist)
     merged.printnode()
 
-    # Circular linked list
-    node2.next = node0
-    node0.printnode()
-
-
-def test_dual_listnode():
-    node0 = DualListNode(0)
-    node1 = DualListNode(1)
-    node2 = DualListNode(2)
-
-    node0.next = node1
-    node1.next = node2
-    node2.pre = node1
-    node1.pre = node0
-
-    node0.printnode()
-
-
 if __name__ == '__main__':
-    test_dual_listnode()
+    main()

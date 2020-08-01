@@ -1,5 +1,14 @@
 # Sorting methods.
 class Sort():
+    """Sort algorithms.
+
+    Methods:
+        bubble sort;
+        quick sort (in two versions);
+        merge sort;
+        simple select sort;
+        heap sort;
+    """
     def __str__(self):
         return 'This is a class containing multiple sorting methods.'
 
@@ -19,12 +28,11 @@ class Sort():
                     seq[i], seq[i+1] = seq[i+1], seq[i]
                     flag = True
                 i += 1
-        
         return seq
 
 
     @classmethod
-    def quicksort(cls, seq: list, low: int, high: int):
+    def quicksort_rec(cls, seq: list, low: int, high: int):
         """Quick sort in recursive method. Complexity: O(nlogn).
 
         Args:
@@ -35,29 +43,72 @@ class Sort():
         Returns:
             No returns, the method operates on the original sequence.
         """
+        if low >= high: #* 递归终止条件：左右端下标相遇
+            return 
+
         i = low
         j = high
         
-        if low < high: #* 递归终止条件：左右端下标相遇
-            base = seq[low] # 以左端起始的数字为枢轴
-            while i < j: # 当左右侧指针相遇时停止循环
-                while seq[j] > base and j > i: # 从右向左扫描比枢轴小的数
-                    j -= 1 # j 向左移动一位
-                if i < j: # 若左右指针相遇则不进行交换
-                    seq[i] = seq[j] # 将比枢轴小的数放到 i 所指的位置
-                    i += 1 # i 右移一位
-                
-                while seq[i] < base and i < j: # 交换方向，从左向右扫描比枢轴大的数
-                    i += 1 # i 向右移动一位
-                if i < j:
-                    seq[j] = seq[i] # 将比枢轴大的数放到 j 所指的位置
-                    j -= 1 # j 左移一位
-                
-            seq[i] = base # 将枢轴放在最终的位置
+        base = seq[low] # 以左端起始的数字为枢轴
+        while i < j: # 当左右侧指针相遇时停止循环
+            while seq[j] > base and j > i: # 从右向左扫描比枢轴小的数
+                j -= 1 # j 向左移动一位
+            if i < j: # 若左右指针相遇则不进行交换
+                seq[i] = seq[j] # 将比枢轴小的数放到 i 所指的位置
+                i += 1 # i 右移一位
+            
+            while seq[i] < base and i < j: # 交换方向，从左向右扫描比枢轴大的数
+                i += 1 # i 向右移动一位
+            if i < j:
+                seq[j] = seq[i] # 将比枢轴大的数放到 j 所指的位置
+                j -= 1 # j 左移一位
+            
+        seq[i] = base # 将枢轴放在最终的位置
 
-            self.quicksort(seq, low, i-1) # 递归对枢轴左侧排序
-            self.quicksort(seq, i+1, high) # 递归对枢轴右侧排序
+        cls.quicksort_rec(seq, low, i-1) # 递归对枢轴左侧排序
+        cls.quicksort_rec(seq, i+1, high) # 递归对枢轴右侧排序
     
+    @classmethod
+    def quicksort_stack(cls, seq: list):
+        """Quick sort in stack method.
+
+        Args:
+            seq: The input sequence.
+        
+        Returns:
+            No returns.
+        """
+        stack = []
+        stack.append([0, len(seq)-1]) # 将待排序列的起止下标压入栈
+
+        while stack:
+            index = stack.pop()
+            low, high = index[0], index[1]
+            
+            if low >= high: # 跳过区间大小为 1 的子区间，继续从栈中取出下标
+                continue
+            
+            # 逻辑同递归版快排
+            base = seq[low] 
+            i = low
+            j = high
+            while i < j:
+                while seq[j] > base and i < j:
+                    j -= 1
+                if i < j:
+                    seq[i] = seq[j]
+                    i += 1
+                while seq[i] < base and i < j:
+                    i += 1
+                if i < j:
+                    seq[j] = seq[i]
+                    j -= 1
+            seq[i] = base
+
+            # 此处替代递归，将子区间下标压入栈
+            stack.append([low, i-1])
+            stack.append([i+1, high])
+
 
     @classmethod
     def mergesort(cls, seq: list):
@@ -66,13 +117,14 @@ class Sort():
         Returns:
             The sorted sequence.
         """
-        # Merge small lists into one ordered sequence.
+        # 将两个有序序列合并起来
         def merge(left: list, right: list) -> list :
             res = []
             i, j = 0, 0 # 左右列表的下标
             left_len = len(left)
             right_len = len(right)
-
+            
+            # 按升序排列元素
             while i < left_len and j < right_len:
                 if left[i] <= right[j]:
                     res.append(left[i])
@@ -88,17 +140,19 @@ class Sort():
                 res += left[i:]
             return res
 
+        # 划分得到中点
         s_len = len(seq)
         if s_len <= 1:
             return seq
-        middle = s_len // 2
+        middle = s_len // 2 # 向下取整
 
-        # Recursively devide the sequence
-        left = self.mergesort(seq[:middle])
-        right = self.mergesort(seq[middle:])
+        # 递归进入左右子区间
+        left = cls.mergesort(seq[:middle])
+        right = cls.mergesort(seq[middle:])
 
-        # Merge small lists into one ordered sequence.
+        # 合并左右区间并返回合并后列表
         return merge(left, right)
+
 
     @classmethod
     def simple_select_sort(cls, seq: list):
@@ -133,6 +187,8 @@ class Sort():
             n: The length of the sequence.
         """
         def maxHeap(seq: list, size: int, i: int):
+            """Build max heap.
+            """
             # 从0开始的下标
             largest = i # 当前最大的节点（根节点）下标
             l = 2 * i + 1 # 左节点下标
@@ -159,17 +215,21 @@ class Sort():
 
 
 if __name__ == '__main__':
-    sample = [2, 3, 10, 1, 4, 7, 5, 9, 12, 0, 30, 8]
-
+    sample = [2, 3, 10, 1, 2, 4, 7, 5, 9, 12, 0, 1, 1, 30, 8]
     s = sample.copy()
-    Sort.quicksort(s, 0, len(s)-1)
+    Sort.quicksort_rec(s, 0, len(s)-1)
     print(s)
 
     s = sample.copy()
-    Sort.simple_select_sort(s)
+    print(s)
+    Sort.quicksort_stack(s)
     print(s)
 
-    s = sample.copy()
-    Sort.heap_sort(s)
-    print(s)
+    # s = sample.copy()
+    # Sort.simple_select_sort(s)
+    # print(s)
+
+    # s = sample.copy()
+    # Sort.heap_sort(s)
+    # print(s)
 
