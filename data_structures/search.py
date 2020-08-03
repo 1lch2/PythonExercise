@@ -1,14 +1,14 @@
 import math
 
 # Searching methods.
-class search:
+class Search:
     """Search algorithms.
     """
     def __str__(self):
         return 'This is a class containing multiple searching methods.'
 
     @classmethod
-    def binsearch(self, seq: list, target: int, low: int, high: int) -> int:
+    def binsearch_recur(cls, seq: list, target: int, low: int, high: int) -> int:
         """Binary search.
 
         This method assumes that the target number is in the input sequence.
@@ -26,25 +26,54 @@ class search:
             raise ValueError('No match in this sequence.')
         else:
             if high - low > 1:
-                mid = math.floor((high - low)/2)
+                mid = (high - low) // 2
                 if target < seq[mid]:
-                    return self.binsearch(seq, target, low, mid)
+                    return cls.binsearch(seq, target, low, mid)
                 elif target > seq[mid]:
-                    return self.binsearch(seq, target, mid, high)
+                    return cls.binsearch(seq, target, mid, high)
                 elif target == seq[mid]:
                     return mid
+        
+    @classmethod
+    def binsearch_iter(cls, seq: list, target: int) -> int:
+        """Non-recursive binary search algorithm.
+
+        Args:
+            seq: The sorted list.
+            target: The target number.
+        
+        Returns:
+            If target is in the list, returns the index.
+            Otherwise, returns the index that target will be inserted into.
+        """
+        low = 0
+        high = len(seq) - 1
+
+        while low <= high: # 左右指针交叉后截止
+            middle = (high + low) // 2
+
+            if target < seq[middle]:
+                high = middle - 1
+            elif target > seq[middle]:
+                low = middle + 1
+            elif target == seq[middle]:
+                return middle
+                        
+        if seq[middle] >= target:
+            return middle
+        else:
+            return middle+1
 
 
 def test():
-    seq = [1,2,3,4,5,6,7,8,9,10,11]
-    target = 3
-    low = 0
-    high = len(seq)
+    seq = [1,3,5,6]
+    target = 2
+    # low = 0
+    # high = len(seq)
 
-    loc = search.binsearch(seq, target, low, high)
+    loc = Search.binsearch_iter(seq, target)
 
     print(loc)
-    print(seq[loc])
 
 if __name__ == '__main__':
     test()
