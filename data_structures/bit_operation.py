@@ -102,6 +102,37 @@ class Bit:
         else:
             raise(ValueError("Invalid method number, should be 0 or 1."))
 
+    @classmethod
+    def isDivisible(cls, a: int, b: int) -> bool:
+        """Judge if the input integer b can be divided by a.
+
+        Args:
+            a: The dividend
+            b: The divisor
+        
+        Returns:
+            Bool value.
+        """
+        #* 思路来源：github.com/LinkinYoung
+        #* 若 a = kb，则可以将 k 转化为二进制
+        #* a / b 的过程转化为 a 减去多个 k 的整数倍，直到 b 不再需要乘倍数
+        #* 此时的结果为除法的余数，余数为 0 显然可以整除
+
+        if a < b:
+            return cls.isDivisible(b, a)
+        
+        while True:
+            k = b # 保留除数的副本
+            i = 0 # 记录左移次数
+            # 对除数循环左移，直到高位在被除数高位的下一位
+            while (k << 1) < a:
+                k = k << 1
+                i += 1
+            
+            a = a - k 
+            if i == 0: # 左移次数为 0 时除法结束，此时检查余数是否为 0
+                return a == 0 
+
 
 if __name__ == "__main__":
     print(Bit.getSmallest2Power(20))
@@ -109,3 +140,6 @@ if __name__ == "__main__":
     
     print(bin(31))
     print(bin(Bit.reverseBits(31)))
+
+    print(Bit.isDivisible(9, 3))
+    print(Bit.isDivisible(9, 2))
