@@ -12,8 +12,12 @@ And some other algorithm implementations:
 - Huffman tree encoding: `huffman_tree.py`
 - LRU(Least Recently Used) cache algorithms: `LRUcache.py`
 - Full permutation: `permuatation.py`
+## Code challenges
+Coding challenges from real interviews. 
+
+Currently updating Netease and Huawei coding questions.
 ## LeetCode
-LeetCode solutions classified by key ideas (in Python).
+LeetCode solutions classified by key ideas.
 ## Deep Learning
 Deep learning notes.
 ## Python Exercises
