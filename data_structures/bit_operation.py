@@ -133,6 +133,33 @@ class Bit:
             if i == 0: # 左移次数为 0 时除法结束，此时检查余数是否为 0
                 return a == 0 
 
+    @classmethod
+    def addWithoutSign(cls, a: int, b: int) -> int:
+        """Calculate a + b without using "+"
+        """
+        #* ^ 异或，相当于无进位求和
+        #* & 与，相当于求进位数
+        #* 公式：(a ^ b) ^ ((a & b) << 1)
+        #* 重复直到没有进位
+
+        #* Python 中整数以补码形式存储
+
+        x = 0xffffffff # 32位无符号整数
+        a, b = a&x, b&x # 舍去32位以上的位数
+
+        while b != 0: # 当进位数为 0 时跳出
+            c = ((a & b) << 1) & x # 进位
+            a = a ^ b # 无进位求和
+            b = c# b 用进位数代替
+        
+        # 0x7fffffff 是最大的32位正整数
+        if a <= 0x7fffffff:
+            return a
+        # 若结果为负数，则先将32位部分按位取反，再将整个数字取反
+        # 结果为32位以内的不变，32位之外取反，得到负数
+        else:
+            return ~(a ^ x)
+
 
 if __name__ == "__main__":
     print(Bit.getSmallest2Power(20))
