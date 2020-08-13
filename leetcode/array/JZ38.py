@@ -1,13 +1,19 @@
+# 输入一个字符串，打印出该字符串中字符的所有排列。
+
+# 你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
+
+# 示例:
+# 输入：s = "abc"
+# 输出：["abc","acb","bac","bca","cab","cba"]
+
+
+# 限制：
+# 1 <= s 的长度 <= 8
+
 from typing import List
 
-class Permutation:
-    """Permutation algorithms.
-    """
-
-    @staticmethod
-    def permutation(s: str) -> List[str]:
-        """Full permutation of input string.
-        """
+class Solution:
+    def permutation(self, s: str) -> List[str]:
         #*              "abc"
         #*            /   |   \
         #*           a    b    c
@@ -44,9 +50,6 @@ class Permutation:
         return list(set(res)) # 去重
 
 
-def main():
-    s = "aba"
-    print(Permutation.permutation(s))
-
 if __name__ == "__main__":
-    main()
+    S = Solution()
+    print(S.permutation("abc"))
