@@ -5,47 +5,57 @@ class Permutation:
     """
 
     @staticmethod
-    def permutation(s: str) -> List[str]:
+    def permutation(nums: list) -> List[List]:
         """Full permutation of input string.
+
+        Assuming the input list is ordered.
         """
-        #*              "abc"
-        #*            /   |   \
-        #*           a    b    c
-        #*          / \  / \  / \
-        #*         b  c  a c a   b 
-        #*         |  |  | | |   |
-        #*         c  b  c a b   a
-        if not s:
+        #* 同一层之间迭代，不同层之间递归向下进入
+        #      "112"
+        #      / | \
+        #    1   1   2
+        #   / \     / \
+        #  1  2    1   1
+        #  |  |    |
+        #  2  1    1
+        if not nums:
             return []
 
         res = [] # 存放返回结果
-        used = [False for _ in range(len(s))] # 标记当前已访问过的元素
+        used = [False for _ in range(len(nums))] # 标记当前已访问过的元素
 
         def backtrack(path, selection):
             # 递归终止条件：剩余选项只有一个
-            if used.count(False) == 1:
-                path += selection[used.index(False)] # 将最后一个元素加入结果
-                res.append(path) # 退出递归时将访问路径加入结果
+            if used.count(False) == 0:
+                res.append(path.copy()) # 使用拷贝避免引用导致结果被修改
                 return
+                
             # 遍历当前每一个可用选择
             for index in range(len(selection)):
-                if used[index]:
-                    continue
+                # 若当前选项已被选择过则跳过
+                if not used[index]:                
+                # 若当前选择与上一轮选择的元素相同则跳过
+                    if index > 0:
+                        # index 下标无法区分不同递归，需要判断前一次是否被选择过
+                        # 若相同元素在前一次递归被选择过则需要剪枝
+                        # 使用跨越不同层递归的 used 来判断
+                        if selection[index] == selection[index-1] and not used[index-1]:
+                            continue
+                    
+                    used[index] = True # 标记本次使用的元素
+                    path.append(selection[index]) # 加入路径
+                    backtrack(path, selection) # 进入下一层递归
 
-                used[index] = True # 进入递归前标记本次的选择
-                path += selection[index] # 将选择加入路径
-                backtrack(path, selection) # 进入递归
-
-                path = path[:-1] # 从路径中移除本次加入的选择
-                used[index] = False # 取消标记，进入下一轮迭代
+                    path.pop() # 去除本次加入的元素
+                    used[index] = False # 取消标记
         
-        backtrack("", s)
+        backtrack([], nums)
 
-        return list(set(res)) # 去重
+        return res
 
 
 def main():
-    s = "aba"
+    s = [1,1,2]
     print(Permutation.permutation(s))
 
 if __name__ == "__main__":

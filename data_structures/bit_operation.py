@@ -73,7 +73,7 @@ class Bit:
         Args:
             n: Integer.
             method: method=0: using complement code method.
-                    method=1, using bit and method.
+                    method=1: using bit and method.
         Returns:
             Bool value.
         """
