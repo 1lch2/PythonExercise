@@ -9,9 +9,12 @@ Basic data structure and algorithms implementations with comments:
 - Search algorithms: `search.py`
 
 And some other algorithm implementations:
-- Huffman tree encoding: `huffman_tree.py`
-- LRU(Least Recently Used) cache algorithms: `LRUcache.py`
 - Full permutation: `permuatation.py`
+- Full combination: `combination.py`
+- Huffman tree encoding: `huffman_tree.py`
+- LRU(Least Recently Used) cache algorithm: `LRUcache.py`
+- LFU(Least Frequently Used) cache algorithm: `LFUcache.py`
+
 ## Code challenges
 Coding challenges from real interviews. 
 
