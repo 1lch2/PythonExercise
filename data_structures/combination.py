@@ -34,27 +34,48 @@ class Combination:
         return res
 
     @staticmethod
-    def ZuHeIndex(li):
-        """Another method for creating combination
+    def combination(selection: list, k: int) -> List[List[int]]:
+        """Combination of given k number of elements.
 
-        Reference:
-            From comment in https://blog.csdn.net/destiny_python/article/details/77461518
+        Args:
+            selection: Available selection in ordered sequence. No repeated elements.
+            k: Number of elements in each combination.
+        
+        Returns:
+            All possible combination in a list.
         """
-        reli = []
-        for i in range(0, len(li)):
-            if 0 == i:
-                reli.append([i])
-            else:
-                addli = []
-                addli.append([i])
-                for ii in reli:
-                    addli.append(ii+[i])
-                reli += addli
-        return reli
+        if k < 1:
+            return []
+        if k > len(selection):
+            raise ValueError("k is larger than the number of available elements.")
+
+        res = [[]]
+
+        def backtrack(start: int, path: list, selection: list):
+            # 递归终止：path 已经有指定数量的元素k
+            if len(path) == k:
+                res.append(path[:]) # 使用拷贝避免引用导致结果被修改
+                return
+            
+            # 遍历可用选择
+            for i in range(start, len(selection)):           
+                path.append(selection[i])
+
+                # 排除本次选择元素，进入下一层递归
+                backtrack(i+1, path, selection)
+
+                path.pop() # 删除本次选择元素
+        
+        backtrack(0, [], selection)
+        return res
+
 
 
 def main():
     res = Combination.fullCombination(["a", "b", "c"])
+    print(res)
+
+    res = Combination.combination(["a", "b", "c"], 2)
     print(res)
 
 if __name__ == '__main__':
