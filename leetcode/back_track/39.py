@@ -45,17 +45,15 @@ class Solution:
                 res.append(path.copy()) # 将路径加入结果
                 return
 
-            # 递归终止条件 2：当前无有效选择能满足要求
-            if sum(path) + min(candidates) > target:
+            # 递归终止条件 2：候选为空:
+            if candidates == []:
                 return
 
-            # 递归终止条件 3：候选为空:
-            if candidates == []:
+            # 递归终止条件 3：当前无有效选择能满足要求
+            if sum(path) + min(candidates) > target:
                 return
             
             for i in range(len(candidates)):
-                if candidates[i] > target: # 跳过大于目标的候选
-                    continue
                 if candidates[i] + sum(path) > target: # 跳过使目标不成立的候选
                     continue
                 
