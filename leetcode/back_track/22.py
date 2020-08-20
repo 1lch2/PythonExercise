@@ -22,6 +22,7 @@ class Solution:
         res = []
 
         def backtrack(path: str, charMap: dict):
+            # 递归终止条件：括号数量达到上限
             if len(path) == 2*n:
                 res.append(path)
                 return
