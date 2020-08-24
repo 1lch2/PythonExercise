@@ -21,11 +21,12 @@ Coding challenges from real interviews.
 Currently updating Netease and Huawei coding questions.
 ## LeetCode
 LeetCode solutions classified by key ideas.
-## Deep Learning
-Deep learning notes.
+
 ## Python Exercises
 Python socket implementation: `/socket_multithread`.
 
 Python O-O feature exercises: `/object_oriented`
 
 Python exclusive features note: `/python_features`
+
+Some other Python codes: `/others`
