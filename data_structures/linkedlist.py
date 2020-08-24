@@ -81,7 +81,7 @@ class ListNode:
         temp = res
 
         h1, h2 = l1, l2
-        while h1 and h2 != None:
+        while h1 != None and h2 != None:
             # Compare the next node
             if h1.val <= h2.val:
                 temp.next = h1
@@ -93,7 +93,7 @@ class ListNode:
             temp = temp.next
 
         # Dealing with the remaining nodes.
-        while h1 or h2 != None:
+        while h1 != None or h2 != None:
             if h1 != None:
                 temp.next = h1
                 h1 = h1.next
