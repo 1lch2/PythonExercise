@@ -1,4 +1,5 @@
 import sys
+from io import StringIO
 
 def io_sys_stdin():
     """标准输入流
@@ -19,9 +20,18 @@ def io_input():
     s = input()
     print(s)
 
+def redirectStdin():
+    """使用 StringIO 重定向标准输入
+    """
+    sys.stdin = StringIO("line1\nlin2\nlin3")
+
+    for line in sys.stdin:
+        s = line.split() # 会按照换行符分割，返回的是一个只含一个元素的 list 
+        print(s)
+
 
 if __name__ == "__main__":
-    print("raw_input()")
-    io_raw_input()
     print("\ninput()")
     io_input()
+    print("\nredirect stdin")
+    redirectStdin()

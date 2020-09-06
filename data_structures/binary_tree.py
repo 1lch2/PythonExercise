@@ -133,7 +133,7 @@ class BinTreeCodec:
     """
     
     @classmethod
-    def serialize(self, root: "TreeNode"):
+    def serialize(cls, root: "TreeNode"):
         """Encodes a tree to a single string.
         
         Args:
@@ -165,7 +165,7 @@ class BinTreeCodec:
         return str(res)
         
     @classmethod
-    def deserialize(self, data: str):
+    def deserialize(cls, data: str):
         """Decodes your encoded data to tree.
         
         Args:
