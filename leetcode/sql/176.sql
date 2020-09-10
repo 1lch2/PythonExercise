@@ -14,6 +14,7 @@
 -- +---------------------+
 
 -- 使用嵌套的查询，将结果作为临时表再选择
+-- 若结果为空，则等于 SELECT NULL，返回的是 null
 SELECT (
     SELECT DISTINCT Salary
     FROM  Employee

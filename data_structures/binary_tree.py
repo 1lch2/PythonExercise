@@ -101,30 +101,29 @@ class TreeNode(object):
         if mode == "stack":
             # Credit: https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/yan-se-biao-ji-fa-yi-chong-tong-yong-qie-jian-ming/
             # 使用不同颜色标记已经访问过的和未访问的节点
-            WHITE = 0 # 白色为新节点
-            GREY = 1 # 灰色为已经访问过的节点
-
-            # 若遇到的节点为白色，则将其标记为灰色，然后将右节点，自身，左节点依次入栈
-            # 若遇到的节点为灰色，则输出它的值
             #* 颜色标记的思路三种遍历都通用
-            #* 可以改用类型判断而不是使用元组，节点类型则进入并压栈，值类型则访问输出
-            stack = [(WHITE, root)]
+            #* 用类型判断而不是使用元组，节点类型则进入并压栈，值类型则访问输出
+            stack = [root]
             while stack:
-                color, current = stack.pop() # 弹出栈顶元素
+                current = stack.pop() # 弹出栈顶元素
                 if current is None: # 遍历中会出现将叶子节点的左右空节点压入栈的情况
                     continue # 跳过后续操作来弹出空的叶子节点
-                if color == WHITE: # 若节点未被访问过
-                    stack.append((WHITE, current.right))
-                    stack.append((GREY, current))
-                    stack.append((WHITE, current.left))
-                else: # if color == GREY
-                    print(current.val, end=" -> ") # 此处为节点访问操作
+                if isinstance(current, TreeNode): # 若节点未被访问过
+                    stack.append(current.right)
+                    stack.append(current.val)
+                    stack.append(current.left)
+                else: # 若当前节点为值，即已经访问过，则输出
+                    print(current, end=" -> ") # 此处为节点访问操作
+
         elif mode == "recursive":
             if root.left != None:
                 self.inorder(root.left, mode="recursive")
+
             print(root.val, end=" -> ") # 节点访问操作
+
             if root.right != None:
                 self.inorder(root.right, mode="recursive")
+                
         else:
             raise(ValueError("Wrong parameter!"))
             
