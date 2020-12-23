@@ -44,7 +44,7 @@ def calculateLucky(names: list) -> int:
     return index_smallest + 1
     
 
-# TODO: 83.33%
+# Passes only 83.33% for unknown reasons
 if __name__ == "__main__":
     # get input
     s = input()

@@ -20,7 +20,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
-# 递归方法
+# 迭代方法
 class Solution:
     def postorderTraversal(self, root: TreeNode) -> List[int]:
         if root is None:

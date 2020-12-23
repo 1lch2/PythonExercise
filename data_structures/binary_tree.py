@@ -1,4 +1,4 @@
-class TreeNode(object):
+class TreeNode:
     """Node of a binary tree.
 
     Attributes:

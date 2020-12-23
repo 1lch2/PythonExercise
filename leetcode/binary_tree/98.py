@@ -41,6 +41,9 @@ class Solution:
     def judgeTree(self, root: TreeNode, lower=float("-inf"), upper=float("inf")) -> bool:
         #* 为节点的比较上下界设置默认值
         #* 每次比较本节点和它的父节点而不是向下比较
+        
+        #* e.g.:
+        #* 左节点一定小于它的父节点，则将上界设为父节点，下界维持默认的负无穷
 
         # 若到达为空的叶子节点，显然是BST
         if root is None:
